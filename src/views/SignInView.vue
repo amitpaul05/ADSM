@@ -9,17 +9,17 @@
                         {{ day }}
                     </label>
                 </div>
-                <button type="submit">Update Information</button>
+                <button type="submit" class="bg-blue-950 hover:bg-transparent hover:border-solid hover:border-2 hover:text-blue-500 hover:border-blue-500 hover:translate-y-2 text-white font-bold py-2 px-4 hover:rounded-md rounded duration-200" @click="signInWithGoogle">Update Information</button>
             </form>
         </div>
         <div v-else class="grid mx-auto w-60 my-auto">
             <div class="grid grid-rows">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="signInWithGoogle">
-                    <font-awesome-icon :icon="['fab', 'google']" class="mr-5"/>
+                <button v-if="!is_loggedin" class="bg-blue-950 hover:bg-transparent hover:border-solid hover:border-2 hover:text-blue-500 hover:border-blue-500 hover:translate-y-2 text-white font-bold py-2 px-4 hover:rounded-md rounded duration-200" @click="signInWithGoogle">
+                    <font-awesome-icon :icon="['fab', 'google']" class="mr-5 text-yellow-500"/>
                     Continue with google
                 </button>
 
-                <button v-if="is_loggedin" @click="sign_out">sign out</button>
+                <button v-else class="bg-blue-950 hover:bg-transparent hover:border-solid hover:border-2 hover:text-blue-500 hover:border-blue-500 hover:translate-y-2 text-white font-bold py-2 px-4 hover:rounded-md rounded duration-200" @click="sign_out">sign out</button>
             </div>
         </div>
 
@@ -30,15 +30,16 @@
 
 <script setup>
 import { onMounted } from 'vue';
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from 'firebase/auth';
 
 import { getFirestore, setDoc, collection, doc, getDocs, query, where, getDoc } from "firebase/firestore"; // Import Firestore methods
 import { useRouter } from 'vue-router';
 
-const onetimesignup = ref(false);
+
 
 const router = useRouter();
+const onetimesignup = ref(false);
 const is_loggedin = ref(false);
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];

@@ -1,8 +1,9 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-import Signin from './components/Signin.vue'
+import { ref } from 'vue'
 import Navigation from "./components/Navigation.vue"
+
+
 
 
 </script>
@@ -24,7 +25,7 @@ import Navigation from "./components/Navigation.vue"
   --light: #f1f5f9;
   --dark-alt: #334155;
   --sidebar-width: 300px;
-  --text-color:#fff;
+  --text-color: #fff;
 
 }
 

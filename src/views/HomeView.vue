@@ -3,6 +3,6 @@
 
 <template>
   <main>
-    <h1>home page</h1>
+    <h1 class="text-3xl">Atomatic Doctor serial management</h1>
   </main>
 </template>
