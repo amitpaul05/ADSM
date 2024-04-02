@@ -2,6 +2,10 @@
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
+import { inject } from 'vue';
+
+const { is_loggedin, onetimesignup, hasSpecificField } = inject('authState');
+
 const is_expended = ref(false)
 
 
@@ -52,14 +56,16 @@ const togglemenu = () => {
                     </div>
                 </transition>
             </RouterLink>
-            <RouterLink to="/sign-in">
-                <transition :name="$route.meta.transition || 'fade'">
-                    <div class="nav-link">
-                        <span><font-awesome-icon :icon="['fas', 'phone-volume']" class="menu-icon" /></span>
-                        <span class="text">sign-in</span>
-                    </div>
-                </transition>
-            </RouterLink>
+            <div v-if="is_loggedin">
+                <RouterLink to="/sign-in">
+                    <transition :name="$route.meta.transition || 'fade'">
+                        <div class="nav-link">
+                            <span><font-awesome-icon :icon="['fas', 'user-plus']" class="menu-icon" /></span>
+                            <span class="text">sign-in</span>
+                        </div>
+                    </transition>
+                </RouterLink>
+            </div>
 
         </div>
 
@@ -209,8 +215,6 @@ aside {
             }
 
         }
-
-
 
 
 

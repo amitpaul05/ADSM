@@ -1,25 +1,36 @@
 <template>
     <main>
-        <div v-if="onetimesignup">
+        <div v-if="onetimesignup" class="w-full text-center px-auto justify-center">
+            <h1 class="mx-2 mb-10 my-8 font-bold font-size text-4xl text-green-700 text-center">You are almost done !
+            </h1>
             <form @submit.prevent="submitInfo">
-                <input type="text" v-model="formData.phone" placeholder="phone">
+                <input class="text-black" type="text" v-model="formData.phone"
+                    placeholder="Enter your phone number" />
+                <h1 class="text-white"> Select Your Preffered Days :</h1>
                 <div v-for="day in days" :key="day">
                     <label>
-                        <input type="checkbox" v-model="formData[day]" value="0">
+                        <input type="checkbox" v-model="formData[day]" value="0" />
                         {{ day }}
                     </label>
                 </div>
-                <button type="submit" class="bg-blue-950 hover:bg-transparent hover:border-solid hover:border-2 hover:text-blue-500 hover:border-blue-500 hover:translate-y-2 text-white font-bold py-2 px-4 hover:rounded-md rounded duration-200" @click="signInWithGoogle">Update Information</button>
+                <button type="submit"
+                    class="rounded bg-blue-950 px-4 py-2 font-bold text-white duration-200 hover:translate-y-2 hover:rounded-md hover:border-2 hover:border-solid hover:border-blue-500 hover:bg-transparent hover:text-blue-500"
+                    @click="signInWithGoogle">Update Information</button>
+
             </form>
         </div>
         <div v-else class="grid mx-auto w-60 my-auto">
             <div class="grid grid-rows">
-                <button v-if="!is_loggedin" class="bg-blue-950 hover:bg-transparent hover:border-solid hover:border-2 hover:text-blue-500 hover:border-blue-500 hover:translate-y-2 text-white font-bold py-2 px-4 hover:rounded-md rounded duration-200" @click="signInWithGoogle">
-                    <font-awesome-icon :icon="['fab', 'google']" class="mr-5 text-yellow-500"/>
+                <button v-if="!is_loggedin"
+                    class="bg-blue-950 hover:bg-transparent hover:border-solid hover:border-2 hover:text-blue-500 hover:border-blue-500 hover:translate-y-2 text-white font-bold py-2 px-4 hover:rounded-md rounded duration-200"
+                    @click="signInWithGoogle">
+                    <font-awesome-icon :icon="['fab', 'google']" class="mr-5 text-yellow-500" />
                     Continue with google
                 </button>
 
-                <button v-else class="bg-blue-950 hover:bg-transparent hover:border-solid hover:border-2 hover:text-blue-500 hover:border-blue-500 hover:translate-y-2 text-white font-bold py-2 px-4 hover:rounded-md rounded duration-200" @click="sign_out">sign out</button>
+                <button v-else
+                    class="bg-blue-950 hover:bg-transparent hover:border-solid hover:border-2 hover:text-blue-500 hover:border-blue-500 hover:translate-y-2 text-white font-bold py-2 px-4 hover:rounded-md rounded duration-200"
+                    @click="sign_out">sign out</button>
             </div>
         </div>
 
@@ -106,8 +117,10 @@ const signInWithGoogle = async () => {
         // Check for existing doctor using email (assuming unique emails)
         const doctorsCollection = collection(db, "EspData", "ADSM", "Doctors");
         const doctorQuery = query(doctorsCollection, where("email", "==", user.email)); // Email equality check
-        console.log(doctorQuery);
         const doctorSnapshot = await getDocs(doctorQuery);
+        const numdocQuery = query(doctorsCollection);
+        const numdoctorSnapshot = await getDocs(numdocQuery);
+        const doc_num = numdoctorSnapshot.size + 1;
 
         if (doctorSnapshot.empty) {
             // New doctor, create document
@@ -117,6 +130,7 @@ const signInWithGoogle = async () => {
                 name: user.displayName,
                 email: user.email,
                 role: 'doctor',
+                code: "Doc" + doc_num,
                 // Add any additional data fields here
             };
 
@@ -150,7 +164,6 @@ const sign_out = () => {
 
 
 const submitInfo = async () => {
-
     for (const day in formData.value) {
         if (formData.value[day] === true) {
             handleCheckboxChange(day)
@@ -208,10 +221,3 @@ function getDoctorsCollection() {
     return collection(db, "EspData", "ADSM", "Doctors"); // Ensure capitalization matches
 }
 </script>
-
-<style scoped>
-/* Optional styling for the login component */
-button {
-    /* Add styles for your button */
-}
-</style>
