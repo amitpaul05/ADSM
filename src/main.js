@@ -9,12 +9,12 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faAddressBook, faAddressCard, faHouse, faArrowRight, faAngleDoubleRight, faEye, faPhoneVolume, faDownload, faPhone, faEnvelope, faLocationDot, faC } from '@fortawesome/free-solid-svg-icons';
+import { faAddressBook, faAddressCard, faHouse, faArrowRight, faAngleDoubleRight, faEye, faPhoneVolume, faDownload, faPhone, faEnvelope, faLocationDot, faC, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { faBitbucket, faFacebook, faGithub, faGoogle, faJsSquare, faLinkedin, faPython, faVuejs } from '@fortawesome/free-brands-svg-icons'
 
 
 // Add imported icons to the library
-library.add(faAddressBook, faAddressCard, faHouse, faArrowRight, faAngleDoubleRight, faEye, faPhoneVolume, faDownload, faPython, faPhone, faEnvelope, faLocationDot, faFacebook, faLinkedin, faBitbucket, faGithub, faC, faJsSquare, faVuejs, faGoogle);
+library.add(faAddressBook, faAddressCard, faHouse, faArrowRight, faAngleDoubleRight, faEye, faPhoneVolume, faDownload, faPython, faPhone, faEnvelope, faLocationDot, faFacebook, faLinkedin, faBitbucket, faGithub, faC, faJsSquare, faVuejs, faGoogle, faUserPlus);
 
 
 // Import the functions you need from the SDKs you need

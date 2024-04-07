@@ -204,10 +204,3 @@ function getDoctorsCollection() {
     return collection(db, "EspData", "ADSM", "Doctors"); // Ensure capitalization matches
 }
 </script>
-
-<style scoped>
-/* Optional styling for the login component */
-button {
-    /* Add styles for your button */
-}
-</style>

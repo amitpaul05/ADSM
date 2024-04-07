@@ -1,9 +1,49 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import { ref } from 'vue'
 import Navigation from "./components/Navigation.vue"
 
 
+import { provide, ref, onMounted } from 'vue';
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from 'firebase/auth';
+
+const is_loggedin = ref(false);
+const onetimesignup = ref(false);
+const hasSpecificField = ref(false);
+
+let auth;
+onMounted(() => {
+    auth = getAuth();
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            is_loggedin.value = true;
+            try {
+                // Retrieve doctor data
+                const db = getFirestore();
+                const doctorsCollection = collection(db, "EspData", "ADSM", "Doctors");
+                const doctorQuery = query(doctorsCollection, where("email", "==", user.email));
+                const doctorSnapshot = await getDocs(doctorQuery);
+
+                // Check if the specific field exists
+                hasSpecificField.value = doctorSnapshot.docs[0].data().hasOwnProperty('phone'); // Replace 'specificField' with the actual field name
+
+                if (!hasSpecificField.value) {
+                    onetimesignup.value = true;
+                } else {
+                    onetimesignup.value = false;
+                }
+            } catch (error) {
+                console.error("Error retrieving doctor data:", error);
+                // Handle errors appropriately
+            }
+
+        }
+        else {
+            is_loggedin.value = false;
+        }
+    })
+})
+
+provide('authState', { is_loggedin, onetimesignup, hasSpecificField });
 
 
 </script>

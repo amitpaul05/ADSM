@@ -9,6 +9,7 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
+      // component: () => import('../views/AppointmentView.vue')
     },
     {
       path: '/about',
@@ -27,6 +28,21 @@ const router = createRouter({
       // component: () => import('../views/SignInView.vue')
       component: () => import('../views/SignInView.vue'),
     },
+
+    {
+      path: '/appointment',
+      name: 'appointment',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/AppointmentView.vue')
+    },
+    {
+      path: '/apoints/:id', // Dynamic path with ":id"
+      name: 'appoint-detail',
+      component: () => import('../views/TrackAppointView.vue'),
+      props: true // Pass route params as props to the component
+    }
     // {
     //   path: '/additional-info',
     //   name: 'edit',
