@@ -3,10 +3,19 @@ import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
 import { inject } from 'vue';
+import { signOut, getAuth } from 'firebase/auth';
 
 const { is_loggedin, onetimesignup, hasSpecificField } = inject('authState');
 
 const is_expended = ref(false)
+
+const sign_out = () => {
+    signOut(getAuth()).then(() => {
+        alert("succesfully signed out")
+        is_loggedin.value = false;
+        router.push('/');
+    })
+}
 
 
 const togglemenushow = () => {
@@ -57,14 +66,18 @@ const togglemenu = () => {
                 </transition>
             </RouterLink>
             <div v-if="is_loggedin">
-                <RouterLink to="/sign-in">
+                <!-- <RouterLink to="/sign-in">
                     <transition :name="$route.meta.transition || 'fade'">
                         <div class="nav-link">
                             <span><font-awesome-icon :icon="['fas', 'user-plus']" class="menu-icon" /></span>
                             <span class="text">sign-in</span>
                         </div>
                     </transition>
-                </RouterLink>
+                </RouterLink> -->
+                <button class="nav-link text-red-400" @click="sign_out">
+                    <span><font-awesome-icon :icon="['fas', 'arrow-right-from-bracket']" class="menu-icon"/></span>
+                    <span class="text">sign-out</span>
+                </button>
             </div>
 
         </div>

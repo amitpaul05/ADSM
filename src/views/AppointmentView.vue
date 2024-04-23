@@ -102,7 +102,7 @@ const makeAppointment = async () => {
         
 
         const appointmentsCollection = collection(db, "EspData", "ADSM", "patient");
-        await addDoc(appointmentsCollection, {
+        const appoint = await addDoc(appointmentsCollection, {
             day: currentDay.value,
             doctor_id: selectdoctor.value, // Assuming only one doctor can be selected
             name: name.value,
@@ -128,7 +128,7 @@ const makeAppointment = async () => {
         // You can add further actions here, such as showing a success message or redirecting the user.
 
 
-        router.push({ name: 'appoint-detail', params: { id: "itemId" } });
+        router.push({ name: 'appoint-detail', params: { id: appoint.id } });
 
 
     } catch (error) {

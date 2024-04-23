@@ -4,8 +4,7 @@
             <h1 class="mx-2 mb-10 my-8 font-bold font-size text-4xl text-green-700 text-center">You are almost done !
             </h1>
             <form @submit.prevent="submitInfo">
-                <input class="text-black" type="text" v-model="formData.phone"
-                    placeholder="Enter your phone number" />
+                <input class="text-black" type="text" v-model="formData.phone" placeholder="Enter your phone number" />
                 <h1 class="text-white"> Select Your Preffered Days :</h1>
                 <div v-for="day in days" :key="day">
                     <label>
@@ -138,13 +137,20 @@ const signInWithGoogle = async () => {
             console.log("New doctor data successfully stored in Firestore!");
             onetimesignup.value = true;
             // Navigate to additional info page (if applicable)
-            // router.push('/additional-info');
+            // router.push('/');
         } else {
             const hasSpecificField = doctorSnapshot.docs[0].data().hasOwnProperty('phone'); // Replace 'specificField' with the actual field name
             console.log(hasSpecificField);
-            console.log("Existing doctor, data not added.");
-            onetimesignup.value = false
+            if(!hasSpecificField){
+                onetimesignup.value = true;
+            }
+            else{
+                console.log("Existing doctor, data not added.");
+                onetimesignup.value = false;
             // Handle existing doctor scenario (e.g., redirect to profile)
+                router.push('/');
+            }
+            
         }
     } catch (error) {
         console.error("Sign-in error:", error.code, error.message);
