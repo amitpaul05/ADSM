@@ -75,7 +75,7 @@ const patient = () => {
             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 text-black">
         </div>
         <div class="flex justify-center">
-          <button class="bg-indigo-500 text-white px-6 py-3 rounded-lg shadow-sm cursor-pointer hover:bg-indigo-600">
+          <button class="bg-purple-800 px-3 py-1 rounded-2x1 hover:text-white hover:border-solid hover:border-2 hover:border-purple-800 hover:bg-transparent mx-2 mb-2 rounded-md duration-500">
             Track appointment
           </button>
         </div>
