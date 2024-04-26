@@ -81,3 +81,6 @@ Thumbs.db
 *.wmv
 
 >>>>>>> 3790bba8a24bcac24697594b4f3f06e496ebb185
+
+# Local Netlify folder
+.netlify
